@@ -1,6 +1,6 @@
 /**
  * @file Creates an array of all properties (enumerable or not) found directly upon a given object.
- * @version 1.0.0
+ * @version 2.0.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -10,41 +10,50 @@
 'use strict';
 
 var toObject = require('to-object-x');
-var nativeGOPN = Object.getOwnPropertyNames;
+var nativeGOPN = typeof Object.getOwnPropertyNames === 'function' && Object.getOwnPropertyNames;
 
-var $gopn;
-if (typeof nativeGOPN === 'function') {
-  // eslint-disable-next-line id-length
-  var objectGOPNAcceptsPrimitives;
-  try {
-    nativeGOPN('foo');
-    objectGOPNAcceptsPrimitives = true;
-  } catch (ignore) {}
+var getOPN;
+if (nativeGOPN) {
+  var attempt = require('attempt-x');
+  var isArray = require('is-array-x');
+  var isCorrectRes = function _isCorrectRes(r, length) {
+    return r.threw === false && isArray(r.value) && r.value.length === length;
+  };
 
-  if (objectGOPNAcceptsPrimitives) {
-    $gopn = nativeGOPN;
+  var either = function _either(r, a, b) {
+    var x = r.value[0];
+    var y = r.value[1];
+    return (x === a && y === b) || (x === b && y === a);
+  };
+
+  var res = attempt(nativeGOPN, 'fo');
+  if (isCorrectRes(res, 3) && either(res, '0', '1') && res.value[2] === 'length') {
+    getOPN = nativeGOPN;
   } else {
-    var toStringTag = require('to-string-tag-x');
-    var concat = Array.prototype.concat;
-    var cachedWindowNames = typeof window === 'object' ? nativeGOPN(window) : [];
+    res = attempt(nativeGOPN, { a: 1, b: 2 });
+    if (isCorrectRes(res, 2) && either(res, 'a', 'b')) {
+      var toStringTag = require('to-string-tag-x');
+      var arraySlice = require('array-slice-x');
+      var win = typeof window === 'object' && window;
+      var cachedWindowNames = win ? nativeGOPN(win) : [];
 
-    $gopn = function getOwnPropertyNames(obj) {
-      var val = toObject(obj);
-      if (toStringTag(val) === '[object Window]') {
-        try {
-          return nativeGOPN(val);
-        } catch (ignore) {
-          // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
-          return concat.call([], cachedWindowNames);
+      getOPN = function getOwnPropertyNames(obj) {
+        var val = toObject(obj);
+        // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
+        if (win && win !== window && toStringTag(val) === '[object Window]') {
+          var result = attempt(nativeGOPN, val);
+          return result.threw ? arraySlice(cachedWindowNames) : result.value;
         }
-      }
 
-      return nativeGOPN(val);
-    };
+        return nativeGOPN(val);
+      };
+    }
   }
-} else {
+}
+
+if (typeof getOPN !== 'function') {
   var objectKeys = require('object-keys-x');
-  $gopn = function getOwnPropertyNames(obj) {
+  getOPN = function getOwnPropertyNames(obj) {
     return objectKeys(obj);
   };
 }
@@ -63,4 +72,4 @@ if (typeof nativeGOPN === 'function') {
  *
  * getOwnPropertyNames('foo'); // ["0", "1", "2", "length"]
  */
-module.exports = $gopn;
+module.exports = getOPN;

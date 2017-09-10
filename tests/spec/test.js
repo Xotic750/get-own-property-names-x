@@ -21,6 +21,10 @@ if (typeof module === 'object' && module.exports) {
   getOwnPropertyNames = returnExports;
 }
 
+var win = typeof window !== 'undefined' && window;
+var doc = typeof document !== 'undefined' && document;
+var ifBrowserIt = win && doc ? it : xit;
+
 describe('getOwnPropertyNames', function () {
   it('is a function', function () {
     expect(typeof getOwnPropertyNames).toBe('function');
@@ -40,6 +44,19 @@ describe('getOwnPropertyNames', function () {
     }).toThrow();
   });
 
+  it('should not throw for primitives', function () {
+    var values = [
+      1,
+      true,
+      'abc',
+      NaN,
+      Infinity,
+      -Infinity
+    ];
+
+    values.map(getOwnPropertyNames);
+  });
+
   it('should return an array matching that of an es-shimmed environment', function () {
     var values = [
       1,
@@ -52,10 +69,25 @@ describe('getOwnPropertyNames', function () {
       new Date()
     ];
 
-    var expected = values.map(Object.getOwnPropertyNames);
+    var expected = values.map(function (item) {
+      return Object.getOwnPropertyNames(Object(item));
+    });
 
     var actual = values.map(getOwnPropertyNames);
 
     expect(actual).toEqual(expected);
+  });
+
+  ifBrowserIt('does not break when an iframe is added', function () {
+    var div = doc.createElement('div');
+    var iframe = doc.createElement('iframe');
+    iframe.src = 'http://xkcd.com';
+    div.appendChild(iframe);
+    doc.body.appendChild(div);
+    setTimeout(function () {
+      doc.body.removeChild(div);
+    }, 0);
+
+    expect(Array.isArray(getOwnPropertyNames(win))).toBe(true);
   });
 });
