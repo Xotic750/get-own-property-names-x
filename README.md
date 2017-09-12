@@ -23,7 +23,7 @@
 ## get-own-property-names-x
 Creates an array of all properties (enumerable or not) found directly upon a given object.
 
-**Version**: 2.0.0  
+**Version**: 2.1.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
