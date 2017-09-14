@@ -1,6 +1,6 @@
 /**
  * @file Creates an array of all properties (enumerable or not) found directly upon a given object.
- * @version 2.1.0
+ * @version 2.2.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
