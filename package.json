@@ -50,11 +50,11 @@
   },
   "dependencies": {
     "array-slice-x": "^3.5.0",
-    "attempt-x": "^2.0.2",
-    "is-array-x": "^2.0.3",
+    "attempt-x": "^2.0.3",
+    "is-array-x": "^2.0.4",
     "object-keys-x": "^2.5.0",
     "to-object-x": "^1.5.0",
-    "to-string-tag-x": "^2.0.6"
+    "to-string-tag-x": "^2.0.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
