@@ -30,12 +30,10 @@ const ifBrowserIt = win && doc ? it : xit;
 describe('getOwnPropertyNames', function() {
   it('is a function', function() {
     expect.assertions(1);
-    expect.assertions(1);
     expect(typeof getOwnPropertyNames).toBe('function');
   });
 
   it('should throw when target is null or undefined', function() {
-    expect.assertions(1);
     expect.assertions(1);
     expect(function() {
       getOwnPropertyNames();
@@ -52,14 +50,12 @@ describe('getOwnPropertyNames', function() {
 
   it('should not throw for primitives', function() {
     expect.assertions(1);
-    expect.assertions(1);
     const values = [1, true, 'abc', NaN, Infinity, -Infinity];
 
     values.map(getOwnPropertyNames);
   });
 
   it('should return an array matching that of an es-shimmed environment', function() {
-    expect.assertions(1);
     expect.assertions(1);
     const values = [1, true, 'abc', [], {}, function() {}, /abc/, new Date()];
 
