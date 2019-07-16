@@ -7,7 +7,7 @@
  * @module get-own-property-names-x
  */
 
-const toObject = require('to-object-x');
+import toObject from 'to-object-x';
 
 const nativeGOPN = typeof Object.getOwnPropertyNames === 'function' && Object.getOwnPropertyNames;
 
@@ -77,4 +77,4 @@ if (typeof getOPN !== 'function') {
  *
  * getOwnPropertyNames('foo'); // ["0", "1", "2", "length"]
  */
-module.exports = getOPN;
+export default getOPN;
