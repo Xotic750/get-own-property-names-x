@@ -1,12 +1,3 @@
-/**
- * @file Creates an array of all properties (enumerable or not) found directly upon a given object.
- * @version 2.2.0
- * @author Xotic750 <Xotic750@gmail.com>
- * @copyright  Xotic750
- * @license {@link <https://opensource.org/licenses/MIT> MIT}
- * @module get-own-property-names-x
- */
-
 import toObject from 'to-object-x';
 
 const nativeGOPN = typeof Object.getOwnPropertyNames === 'function' && Object.getOwnPropertyNames;
@@ -72,9 +63,5 @@ if (typeof getOPN !== 'function') {
  * @throws {TypeError} If target is null or undefined.
  * @returns {Array} An array of strings that correspond to the properties found
  *  directly upon the given object.
- * @example
- * var getOwnPropertyName = require('get-own-property-name-x');
- *
- * getOwnPropertyNames('foo'); // ["0", "1", "2", "length"]
  */
 export default getOPN;
