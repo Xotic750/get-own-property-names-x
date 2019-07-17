@@ -21,33 +21,35 @@
 <a name="module_get-own-property-names-x"></a>
 
 ## get-own-property-names-x
+
 Creates an array of all properties (enumerable or not) found directly upon a given object.
 
 **Version**: 2.2.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
-**License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
+**License**: [MIT](https://opensource.org/licenses/MIT)  
 **Copyright**: Xotic750  
 <a name="exp_module_get-own-property-names-x--module.exports"></a>
 
 ### `module.exports` ⇒ <code>array</code> ⏏
+
 This method creates an array of all properties (enumerable or not) found
 directly upon a given object.
 
 **Kind**: Exported member  
 **Returns**: <code>array</code> - An array of strings that correspond to the properties found
- directly upon the given object.  
+directly upon the given object.  
 **Throws**:
 
 - <code>TypeError</code> If target is null or undefined.
 
+| Param | Type                | Description                                                                       |
+| ----- | ------------------- | --------------------------------------------------------------------------------- |
+| obj   | <code>object</code> | The object whose enumerable and non-enumerable own properties are to be returned. |
 
-| Param | Type | Description |
-| --- | --- | --- |
-| obj | <code>object</code> | The object whose enumerable and non-enumerable own  properties are to be returned. |
+**Example**
 
-**Example**  
 ```js
-var getOwnPropertyName = require('get-own-property-name-x');
+import getOwnPropertyName from 'get-own-property-name-x';
 
 getOwnPropertyNames('foo'); // ["0", "1", "2", "length"]
 ```

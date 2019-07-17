@@ -1,4 +1,4 @@
-let getOwnPropertyNames;
+import getOwnPropertyNames from '../src/get-own-property-names-x';
 
 const win = typeof window !== 'undefined' && window;
 const doc = typeof document !== 'undefined' && document;
@@ -11,7 +11,7 @@ describe('getOwnPropertyNames', function() {
   });
 
   it('should throw when target is null or undefined', function() {
-    expect.assertions(1);
+    expect.assertions(3);
     expect(function() {
       getOwnPropertyNames();
     }).toThrowErrorMatchingSnapshot();
@@ -30,6 +30,7 @@ describe('getOwnPropertyNames', function() {
     const values = [1, true, 'abc', NaN, Infinity, -Infinity];
 
     values.map(getOwnPropertyNames);
+    expect(true).toBe(true);
   });
 
   it('should return an array matching that of an es-shimmed environment', function() {
