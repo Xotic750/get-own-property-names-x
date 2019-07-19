@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-18T22:54:26.133Z",
+  "date": "2019-07-19T22:33:48.639Z",
   "describe": "",
   "description": "Creates an array of all properties (enumerable or not) found directly upon a given object.",
   "file": "get-own-property-names-x.js",
-  "hash": "bfb054d15711533c8e84",
+  "hash": "0787cc9e7ddac7851cb6",
   "license": "MIT",
-  "version": "3.0.2"
+  "version": "3.0.3"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -2160,7 +2160,7 @@ var hop = {}.hasOwnProperty;
  *
  * @param {!object} object - The object to test.
  * @throws {TypeError} If object is null or undefined.
- * @param {string|Symbol} property - The name or Symbol of the property to test.
+ * @param {string|number|Symbol} property - The name or Symbol of the property to test.
  * @returns {boolean} `true` if the property is set on `object`, else `false`.
  */
 
