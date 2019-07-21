@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-19T22:33:48.639Z",
+  "date": "2019-07-21T23:22:26.139Z",
   "describe": "",
   "description": "Creates an array of all properties (enumerable or not) found directly upon a given object.",
   "file": "get-own-property-names-x.js",
   "hash": "0787cc9e7ddac7851cb6",
   "license": "MIT",
-  "version": "3.0.3"
+  "version": "3.0.4"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
