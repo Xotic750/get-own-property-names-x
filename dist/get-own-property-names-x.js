@@ -2,7 +2,7 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-29T16:16:37.074Z",
+  "date": "2019-07-29T19:55:59.441Z",
   "describe": "",
   "description": "Creates an array of all properties (enumerable or not) found directly upon a given object.",
   "file": "get-own-property-names-x.js",
