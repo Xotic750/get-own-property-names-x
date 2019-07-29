@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-27T22:07:37.596Z",
+  "date": "2019-07-29T16:16:37.074Z",
   "describe": "",
   "description": "Creates an array of all properties (enumerable or not) found directly upon a given object.",
   "file": "get-own-property-names-x.js",
-  "hash": "b214a66f71b3b4669663",
+  "hash": "d2919055984caa77809c",
   "license": "MIT",
   "version": "3.0.11"
 }
@@ -2182,8 +2182,8 @@ if (nativeGOPD) {
   var getOPDWorksOnDom = object_get_own_property_descriptor_x_esm_doc ? object_get_own_property_descriptor_x_esm_doesGOPDWork(object_get_own_property_descriptor_x_esm_doc.createElement('div'), 'sentinel') : true;
 
   if (getOPDWorksOnDom) {
-    var res = attempt_x_esm(nativeGOPD, object_get_own_property_descriptor_x_esm_castObject('abc'), 1);
-    var worksWithStr = res.threw === false && res.value && res.value.value === 'b';
+    var object_get_own_property_descriptor_x_esm_res = attempt_x_esm(nativeGOPD, object_get_own_property_descriptor_x_esm_castObject('abc'), 1);
+    var worksWithStr = object_get_own_property_descriptor_x_esm_res.threw === false && object_get_own_property_descriptor_x_esm_res.value && object_get_own_property_descriptor_x_esm_res.value.value === 'b';
 
     if (worksWithStr) {
       var getOPDWorksOnObject = object_get_own_property_descriptor_x_esm_doesGOPDWork({}, 'sentinel');
@@ -2709,6 +2709,8 @@ var ok = objectKeys;
 
 
 // CONCATENATED MODULE: ./dist/get-own-property-names-x.esm.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation1", function() { return get_own_property_names_x_esm_implementation1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation2", function() { return get_own_property_names_x_esm_implementation2; });
 function get_own_property_names_x_esm_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { get_own_property_names_x_esm_typeof = function _typeof(obj) { return typeof obj; }; } else { get_own_property_names_x_esm_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return get_own_property_names_x_esm_typeof(obj); }
 
 
@@ -2720,6 +2722,61 @@ function get_own_property_names_x_esm_typeof(obj) { if (typeof Symbol === "funct
 var get_own_property_names_x_esm_ObjectCtr = {}.constructor;
 var nGOPN = get_own_property_names_x_esm_ObjectCtr.getOwnPropertyNames;
 var nativeGOPN = typeof nGOPN === 'function' && nGOPN;
+
+var get_own_property_names_x_esm_isCorrectRes = function isCorrectRes(r, length) {
+  return r.threw === false && is_array_x_esm(r.value) && r.value.length === length;
+};
+
+var get_own_property_names_x_esm_either = function either(r, a, b) {
+  var x = r.value[0];
+  var y = r.value[1];
+  return x === a && y === b || x === b && y === a;
+};
+
+var get_own_property_names_x_esm_test1 = function test1() {
+  var res = attempt_x_esm(nativeGOPN, 'fo');
+  return get_own_property_names_x_esm_isCorrectRes(res, 3) && get_own_property_names_x_esm_either(res, '0', '1') && res.value[2] === 'length';
+};
+
+var get_own_property_names_x_esm_test2 = function test2() {
+  var res = attempt_x_esm(nativeGOPN, {
+    a: 1,
+    b: 2
+  });
+  return get_own_property_names_x_esm_isCorrectRes(res, 2) && get_own_property_names_x_esm_either(res, 'a', 'b');
+};
+
+var get_own_property_names_x_esm_implementation1 = function implementation1() {
+  var win = (typeof window === "undefined" ? "undefined" : get_own_property_names_x_esm_typeof(window)) === 'object' && window;
+  var cachedWindowNames = win ? nativeGOPN(win) : [];
+  return function getOwnPropertyNames(obj) {
+    var val = to_object_x_esm(obj); // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
+
+    if (win && win !== window && to_string_tag_x_esm(val) === '[object Window]') {
+      var result = attempt_x_esm(nativeGOPN, val);
+      return result.threw ? array_slice_x_esm(cachedWindowNames) : result.value;
+    }
+
+    return nativeGOPN(val);
+  };
+};
+var get_own_property_names_x_esm_implementation2 = function implementation2() {
+  return function getOwnPropertyNames(obj) {
+    return object_keys_x_esm(obj);
+  };
+};
+
+var getImplementation = function getImplementation() {
+  if (get_own_property_names_x_esm_test1()) {
+    return nativeGOPN;
+  }
+
+  if (get_own_property_names_x_esm_test2()) {
+    return get_own_property_names_x_esm_implementation1();
+  }
+
+  return get_own_property_names_x_esm_implementation2();
+};
 /**
  * This method creates an array of all properties (enumerable or not) found
  * directly upon a given object.
@@ -2731,55 +2788,9 @@ var nativeGOPN = typeof nGOPN === 'function' && nGOPN;
  *  directly upon the given object.
  */
 
-var getOPN;
 
-if (nativeGOPN) {
-  var get_own_property_names_x_esm_isCorrectRes = function isCorrectRes(r, length) {
-    return r.threw === false && is_array_x_esm(r.value) && r.value.length === length;
-  };
-
-  var get_own_property_names_x_esm_either = function either(r, a, b) {
-    var x = r.value[0];
-    var y = r.value[1];
-    return x === a && y === b || x === b && y === a;
-  };
-
-  var get_own_property_names_x_esm_res = attempt_x_esm(nativeGOPN, 'fo');
-
-  if (get_own_property_names_x_esm_isCorrectRes(get_own_property_names_x_esm_res, 3) && get_own_property_names_x_esm_either(get_own_property_names_x_esm_res, '0', '1') && get_own_property_names_x_esm_res.value[2] === 'length') {
-    getOPN = nativeGOPN;
-  } else {
-    get_own_property_names_x_esm_res = attempt_x_esm(nativeGOPN, {
-      a: 1,
-      b: 2
-    });
-
-    if (get_own_property_names_x_esm_isCorrectRes(get_own_property_names_x_esm_res, 2) && get_own_property_names_x_esm_either(get_own_property_names_x_esm_res, 'a', 'b')) {
-      var win = (typeof window === "undefined" ? "undefined" : get_own_property_names_x_esm_typeof(window)) === 'object' && window;
-      var cachedWindowNames = win ? nativeGOPN(win) : [];
-
-      getOPN = function getOwnPropertyNames(obj) {
-        var val = to_object_x_esm(obj); // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
-
-        if (win && win !== window && to_string_tag_x_esm(val) === '[object Window]') {
-          var result = attempt_x_esm(nativeGOPN, val);
-          return result.threw ? array_slice_x_esm(cachedWindowNames) : result.value;
-        }
-
-        return nativeGOPN(val);
-      };
-    }
-  }
-}
-
-if (typeof getOPN !== 'function') {
-  getOPN = function getOwnPropertyNames(obj) {
-    return object_keys_x_esm(obj);
-  };
-}
-
-var gopn = getOPN;
-/* harmony default export */ var get_own_property_names_x_esm = __webpack_exports__["default"] = (gopn);
+var getOPN = getImplementation();
+/* harmony default export */ var get_own_property_names_x_esm = __webpack_exports__["default"] = (getOPN);
 
 
 

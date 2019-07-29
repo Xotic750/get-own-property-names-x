@@ -9,6 +9,65 @@ const ObjectCtr = {}.constructor;
 const nGOPN = ObjectCtr.getOwnPropertyNames;
 const nativeGOPN = typeof nGOPN === 'function' && nGOPN;
 
+const isCorrectRes = function isCorrectRes(r, length) {
+  return r.threw === false && isArray(r.value) && r.value.length === length;
+};
+
+const either = function either(r, a, b) {
+  const x = r.value[0];
+  const y = r.value[1];
+
+  return (x === a && y === b) || (x === b && y === a);
+};
+
+const test1 = function test1() {
+  const res = attempt(nativeGOPN, 'fo');
+
+  return isCorrectRes(res, 3) && either(res, '0', '1') && res.value[2] === 'length';
+};
+
+const test2 = function test2() {
+  const res = attempt(nativeGOPN, {a: 1, b: 2});
+
+  return isCorrectRes(res, 2) && either(res, 'a', 'b');
+};
+
+export const implementation1 = function implementation1() {
+  const win = typeof window === 'object' && window;
+  const cachedWindowNames = win ? nativeGOPN(win) : [];
+
+  return function getOwnPropertyNames(obj) {
+    const val = toObject(obj);
+
+    // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
+    if (win && win !== window && toStringTag(val) === '[object Window]') {
+      const result = attempt(nativeGOPN, val);
+
+      return result.threw ? arraySlice(cachedWindowNames) : result.value;
+    }
+
+    return nativeGOPN(val);
+  };
+};
+
+export const implementation2 = function implementation2() {
+  return function getOwnPropertyNames(obj) {
+    return objectKeys(obj);
+  };
+};
+
+const getImplementation = function getImplementation() {
+  if (test1()) {
+    return nativeGOPN;
+  }
+
+  if (test2()) {
+    return implementation1();
+  }
+
+  return implementation2();
+};
+
 /**
  * This method creates an array of all properties (enumerable or not) found
  * directly upon a given object.
@@ -19,53 +78,6 @@ const nativeGOPN = typeof nGOPN === 'function' && nGOPN;
  * @returns {Array} An array of strings that correspond to the properties found
  *  directly upon the given object.
  */
-let getOPN;
+const getOPN = getImplementation();
 
-if (nativeGOPN) {
-  const isCorrectRes = function isCorrectRes(r, length) {
-    return r.threw === false && isArray(r.value) && r.value.length === length;
-  };
-
-  const either = function either(r, a, b) {
-    const x = r.value[0];
-    const y = r.value[1];
-
-    return (x === a && y === b) || (x === b && y === a);
-  };
-
-  let res = attempt(nativeGOPN, 'fo');
-
-  if (isCorrectRes(res, 3) && either(res, '0', '1') && res.value[2] === 'length') {
-    getOPN = nativeGOPN;
-  } else {
-    res = attempt(nativeGOPN, {a: 1, b: 2});
-
-    if (isCorrectRes(res, 2) && either(res, 'a', 'b')) {
-      const win = typeof window === 'object' && window;
-      const cachedWindowNames = win ? nativeGOPN(win) : [];
-
-      getOPN = function getOwnPropertyNames(obj) {
-        const val = toObject(obj);
-
-        // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
-        if (win && win !== window && toStringTag(val) === '[object Window]') {
-          const result = attempt(nativeGOPN, val);
-
-          return result.threw ? arraySlice(cachedWindowNames) : result.value;
-        }
-
-        return nativeGOPN(val);
-      };
-    }
-  }
-}
-
-if (typeof getOPN !== 'function') {
-  getOPN = function getOwnPropertyNames(obj) {
-    return objectKeys(obj);
-  };
-}
-
-const gopn = getOPN;
-
-export default gopn;
+export default getOPN;
