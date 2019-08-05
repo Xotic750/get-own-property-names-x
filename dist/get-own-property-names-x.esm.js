@@ -1,5 +1,13 @@
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 import toObject from 'to-object-x';
 import attempt from 'attempt-x';
 import isArray from 'is-array-x';
@@ -14,7 +22,12 @@ var isCorrectRes = function isCorrectRes(r, length) {
   return r.threw === false && isArray(r.value) && r.value.length === length;
 };
 
-var either = function either(r, a, b) {
+var either = function either(args) {
+  var _args = _slicedToArray(args, 3),
+      r = _args[0],
+      a = _args[1],
+      b = _args[2];
+
   var x = r.value[0];
   var y = r.value[1];
   return x === a && y === b || x === b && y === a;
@@ -22,7 +35,7 @@ var either = function either(r, a, b) {
 
 var test1 = function test1() {
   var res = attempt(nativeGOPN, 'fo');
-  return isCorrectRes(res, 3) && either(res, '0', '1') && res.value[2] === 'length';
+  return isCorrectRes(res, 3) && either([res, '0', '1']) && res.value[2] === 'length';
 };
 
 var test2 = function test2() {
@@ -30,7 +43,7 @@ var test2 = function test2() {
     a: 1,
     b: 2
   });
-  return isCorrectRes(res, 2) && either(res, 'a', 'b');
+  return isCorrectRes(res, 2) && either([res, 'a', 'b']);
 };
 
 export var implementation1 = function implementation1() {

@@ -13,7 +13,8 @@ const isCorrectRes = function isCorrectRes(r, length) {
   return r.threw === false && isArray(r.value) && r.value.length === length;
 };
 
-const either = function either(r, a, b) {
+const either = function either(args) {
+  const [r, a, b] = args;
   const x = r.value[0];
   const y = r.value[1];
 
@@ -23,13 +24,13 @@ const either = function either(r, a, b) {
 const test1 = function test1() {
   const res = attempt(nativeGOPN, 'fo');
 
-  return isCorrectRes(res, 3) && either(res, '0', '1') && res.value[2] === 'length';
+  return isCorrectRes(res, 3) && either([res, '0', '1']) && res.value[2] === 'length';
 };
 
 const test2 = function test2() {
   const res = attempt(nativeGOPN, {a: 1, b: 2});
 
-  return isCorrectRes(res, 2) && either(res, 'a', 'b');
+  return isCorrectRes(res, 2) && either([res, 'a', 'b']);
 };
 
 export const implementation1 = function implementation1() {
