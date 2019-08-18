@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getOwnPropertyNames should throw when target is null or undefined 1`] = `"Cannot convert undefined or null to object"`;
+exports[`getOwnPropertyNames 0 should throw when target is null or undefined 1`] = `"Cannot convert undefined or null to object"`;
 
-exports[`getOwnPropertyNames should throw when target is null or undefined 2`] = `"Cannot convert undefined or null to object"`;
+exports[`getOwnPropertyNames 0 should throw when target is null or undefined 2`] = `"Cannot convert undefined or null to object"`;
 
-exports[`getOwnPropertyNames should throw when target is null or undefined 3`] = `"Cannot convert undefined or null to object"`;
+exports[`getOwnPropertyNames 0 should throw when target is null or undefined 3`] = `"Cannot convert undefined or null to object"`;
+
+exports[`getOwnPropertyNames 1 should throw when target is null or undefined 1`] = `"Cannot call method on undefined"`;
+
+exports[`getOwnPropertyNames 1 should throw when target is null or undefined 2`] = `"Cannot call method on undefined"`;
+
+exports[`getOwnPropertyNames 1 should throw when target is null or undefined 3`] = `"Cannot call method on null"`;
+
+exports[`getOwnPropertyNames 2 should throw when target is null or undefined 1`] = `"Cannot convert undefined or null to object"`;
+
+exports[`getOwnPropertyNames 2 should throw when target is null or undefined 2`] = `"Cannot convert undefined or null to object"`;
+
+exports[`getOwnPropertyNames 2 should throw when target is null or undefined 3`] = `"Cannot convert undefined or null to object"`;

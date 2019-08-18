@@ -46,24 +46,20 @@ var test2 = function test2() {
   return isCorrectRes(res, 2) && either([res, 'a', 'b']);
 };
 
-export var implementation1 = function implementation1() {
-  var win = (typeof window === "undefined" ? "undefined" : _typeof(window)) === 'object' && window;
-  var cachedWindowNames = win ? nativeGOPN(win) : [];
-  return function getOwnPropertyNames(obj) {
-    var val = toObject(obj); // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
+var win = (typeof window === "undefined" ? "undefined" : _typeof(window)) === 'object' && window;
+var cachedWindowNames = win ? nativeGOPN(win) : [];
+export var implementation1 = function getOwnPropertyNames(obj) {
+  var val = toObject(obj); // IE bug where layout engine calls userland gOPN for cross-domain `window` objects
 
-    if (win && win !== window && toStringTag(val) === '[object Window]') {
-      var result = attempt(nativeGOPN, val);
-      return result.threw ? arraySlice(cachedWindowNames) : result.value;
-    }
+  if (win && win !== window && toStringTag(val) === '[object Window]') {
+    var result = attempt(nativeGOPN, val);
+    return result.threw ? arraySlice(cachedWindowNames) : result.value;
+  }
 
-    return nativeGOPN(val);
-  };
+  return nativeGOPN(val);
 };
-export var implementation2 = function implementation2() {
-  return function getOwnPropertyNames(obj) {
-    return objectKeys(obj);
-  };
+export var implementation2 = function getOwnPropertyNames(obj) {
+  return objectKeys(obj);
 };
 
 var getImplementation = function getImplementation() {
@@ -71,11 +67,7 @@ var getImplementation = function getImplementation() {
     return nativeGOPN;
   }
 
-  if (test2()) {
-    return implementation1();
-  }
-
-  return implementation2();
+  return test2() ? implementation1 : implementation2;
 };
 /**
  * This method creates an array of all properties (enumerable or not) found
