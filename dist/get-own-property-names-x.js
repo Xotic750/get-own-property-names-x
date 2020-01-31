@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-09-05T20:26:07.904Z",
+  "date": "2020-01-31T00:39:35.075Z",
   "describe": "",
   "description": "Creates an array of all properties (enumerable or not) found directly upon a given object.",
   "file": "get-own-property-names-x.js",
-  "hash": "20755fc9e496e4e289ee",
+  "hash": "edae19477f782374e13f",
   "license": "MIT",
   "version": "3.1.2"
 }
@@ -3148,13 +3148,13 @@ var $objectKeys = object_keys_x_esm_isWorking ? objectKeys : object_keys_x_esm_i
 // CONCATENATED MODULE: ./dist/get-own-property-names-x.esm.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation1", function() { return implementation1; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation2", function() { return implementation2; });
-function get_own_property_names_x_esm_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { get_own_property_names_x_esm_typeof = function _typeof(obj) { return typeof obj; }; } else { get_own_property_names_x_esm_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return get_own_property_names_x_esm_typeof(obj); }
+function get_own_property_names_x_esm_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { get_own_property_names_x_esm_typeof = function _typeof(obj) { return typeof obj; }; } else { get_own_property_names_x_esm_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return get_own_property_names_x_esm_typeof(obj); }
 
 function get_own_property_names_x_esm_slicedToArray(arr, i) { return get_own_property_names_x_esm_arrayWithHoles(arr) || get_own_property_names_x_esm_iterableToArrayLimit(arr, i) || get_own_property_names_x_esm_nonIterableRest(); }
 
 function get_own_property_names_x_esm_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function get_own_property_names_x_esm_iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function get_own_property_names_x_esm_iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function get_own_property_names_x_esm_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
